@@ -2,18 +2,18 @@
 import React, { Component } from 'react'
 
 /* Presentational */
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 // import styles from './styles'
 import { styles } from '../style/styles.js'
 
-import HeaderText from './HeaderText'
-
-export default class Navbar extends Component {
+export default class HeaderText extends Component {
   render () {
     return (
-      <View style={styles.navbar}>
-        <HeaderText>Notes</HeaderText>
+      <View>
+        <Text style={styles.headerText}>
+          {this.props.children}
+        </Text>
       </View>
     )
   }
