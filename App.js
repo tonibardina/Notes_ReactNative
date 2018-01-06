@@ -8,12 +8,18 @@ import { View } from 'react-native'
 import { styles } from './style/styles.js'
 
 import Navbar from './Components/Navbar'
+import AnimatedCard from './Components/AnimatedCard'
 
-export default class App extends React.Component {
+export default class App extends Component {
   render () {
     return (
       <View style={styles.container}>
         <Navbar />
+        <AnimatedCard
+          text={'Hello Worldhjgdhkhgjdfewffwrfderjhewgfjhewhjjwefghewfgwjkefgjwkegfkjwegfkjewferjkfhekjrfgkejrfhkier f kuherf rkhjf rekjhfrfhjk erhjk'}
+          animatedCardStyle={styles.AnimatedCardText}
+          style={styles.AnimatedCard}
+          />
       </View>
     )
   }

@@ -10,7 +10,7 @@ import {
   Image
  } from 'react-native'
 
-class Favourite extends Component {
+class TrashCan extends Component {
   constructor (props) {
     super(props)
     this.state = { clicked: false }
@@ -48,4 +48,4 @@ class Favourite extends Component {
   }
 }
 
-export default Favourite
+export default TrashCan
