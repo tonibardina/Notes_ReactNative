@@ -13,8 +13,7 @@ export const styles = StyleSheet.create({
     height: '13%',
     padding: 10,
     paddingTop: 25,
-    alignItems: 'center',
-    justifyContent: 'space-between'
+    alignItems: 'center'
   },
   navbarHearth: {
     padding: 18

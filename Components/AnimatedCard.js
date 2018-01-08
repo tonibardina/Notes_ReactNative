@@ -2,13 +2,14 @@
 import React, { Component } from 'react'
 
 /* Presentational */
-import { Animated, Text, PanResponder, Dimensions } from 'react-native'
+import { Animated, Text, PanResponder } from 'react-native'
 
 import Favourite from './Favourite'
+import TrashCan from './TrashCan'
 
-var {
-  width: deviceWidth
-} = Dimensions.get('window')
+// var {
+//   width: deviceWidth
+// } = Dimensions.get('window')
 
 export default class AnimatedCard extends Component {
   constructor (props) {
@@ -75,8 +76,8 @@ export default class AnimatedCard extends Component {
   render () {
     return (
       <Animated.View style={{flexDirection: 'row', alignItems: 'center', backgroundColor: 'red'}}>
-        <Animated.View style={[{transform: [], opacity: this._opacityAnimationHearth}]}>
-          <Favourite />
+        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearth}]}>
+          <Favourite style={{backgroundColor: 'green', padding: 10}} />
         </Animated.View>
         <Animated.View style={[this.props.style,
           {transform:
@@ -88,8 +89,8 @@ export default class AnimatedCard extends Component {
         >
           <Text style={this.props.animatedCardStyle}>{this.props.text}</Text>
         </Animated.View>
-        <Animated.View style={[{transform: [], opacity: this._opacityAnimationTrash}]}>
-          <Favourite />
+        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationTrash}]}>
+          <TrashCan style={{backgroundColor: 'green', padding: 10}} />
         </Animated.View>
       </Animated.View>
     )

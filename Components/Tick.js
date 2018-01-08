@@ -10,7 +10,7 @@ import {
   Image
  } from 'react-native'
 
-class TrashCan extends Component {
+class Tick extends Component {
   handlePress = () => {
   
   }
@@ -21,11 +21,11 @@ class TrashCan extends Component {
         {
           Platform.OS === 'ios' ? (
             <TouchableHighlight style={this.props.style} onPress={this.handlePress} underlayColor={'transparent'}>
-              <Image source={require('../assets/ios/trashCan/trashCan.png')} />
+              <Image source={require('../assets/ios/tickIcon/tick.png')} />
             </TouchableHighlight>
           ) : (
             <TouchableNativeFeedback style={this.props.style} onPress={this.handlePress} underlayColor={'transparent'}>
-              <Image source={require('../assets/android/trashCan/trashCanhdpi.png')} />
+              <Image source={require('../assets/android/tickIcon/tickhdpi.png')} />
             </TouchableNativeFeedback>
           )
         }
@@ -34,4 +34,4 @@ class TrashCan extends Component {
   }
 }
 
-export default TrashCan
+export default Tick

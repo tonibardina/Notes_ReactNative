@@ -37,8 +37,8 @@ class Favourite extends Component {
           ) : (
             <TouchableNativeFeedback style={this.props.style} onPress={this.handlePress} underlayColor={'transparent'}>
               {
-              clicked ? <Image source={require('../assets/android/hearthIcon/hearthFilledmdpi.png')} />
-                        : <Image source={require('../assets/android/hearthIcon/hearthBordermdpi.png')} />
+              clicked ? <Image source={require('../assets/android/hearthIcon/hearthFilledhdpi.png')} />
+                        : <Image source={require('../assets/android/hearthIcon/hearthBorderhdpi.png')} />
               }
             </TouchableNativeFeedback>
           )

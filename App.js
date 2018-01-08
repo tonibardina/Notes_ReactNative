@@ -9,6 +9,7 @@ import { styles } from './style/styles.js'
 
 import Navbar from './Components/Navbar'
 import AnimatedCard from './Components/AnimatedCard'
+import store from './store'
 
 export default class App extends Component {
   render () {
