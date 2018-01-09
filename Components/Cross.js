@@ -12,7 +12,7 @@ import {
 
 class Cross extends Component {
   handlePress = () => {
-  
+    this.props.pressResponse()
   }
 
   render () {

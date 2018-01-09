@@ -2,9 +2,10 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#9cd8d5',
-    alignItems: 'center'
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: '#9cd8d5'
   },
   navbar: {
     flexDirection: 'row',
@@ -25,14 +26,17 @@ export const styles = StyleSheet.create({
   },
   AnimatedCard: {
     backgroundColor: 'white',
-    width: '90%',
+    width: '80%',
     padding: 10,
-    margin: 10,
+    margin: 20,
     borderRadius: 10
   },
   AnimatedCardText: {
     color: '#28605e',
     fontSize: 16,
     fontWeight: 'bold'
+  },
+  contentContainer: {
+
   }
 })

@@ -7,6 +7,8 @@ import { View } from 'react-native'
 // import styles from './styles'
 import { styles } from '../style/styles.js'
 
+import store from '../store'
+
 import HeaderText from './HeaderText'
 import Favourite from './Favourite'
 import Addnote from './Addnote'
@@ -14,27 +16,27 @@ import Tick from './Tick'
 import Cross from './Cross'
 
 export default class Navbar extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {AddingNote: false}
+
+  addNotePress = () => {
+    console.log('addNote pressed')
+    store.dispatch({type: 'SHOW_VISIBILITY_FILTER', filter: 'WRITE_MODE'})
   }
 
   render () {
-    let AddingNote = this.state.AddingNote
     return (
       <View style={styles.navbar}>
         {
-          AddingNote
+          this.props.visibilityFilter === 'WRITE_MODE'
           ? <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
             <Tick style={styles.navbarHearth} />
             <HeaderText>Add note</HeaderText>
-            <Cross />
+            <Cross style={styles.navbarHearth} />
           </View>
 
           : <View style={{flexDirection: 'row', justifyContent: 'space-between', width: '100%', alignItems: 'center'}}>
             <Favourite style={styles.navbarHearth} />
             <HeaderText>Notes</HeaderText>
-            <Addnote />
+            <Addnote handlePress={this.addNotePress} />
           </View>
         }
       </View>

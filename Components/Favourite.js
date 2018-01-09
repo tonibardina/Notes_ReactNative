@@ -1,7 +1,5 @@
-/* Core */
 import React, { Component } from 'react'
 
-/* Presentational */
 import {
   View,
   Platform,
@@ -10,6 +8,8 @@ import {
   Image
  } from 'react-native'
 
+import store from '../store'
+
 class Favourite extends Component {
   constructor (props) {
     super(props)
@@ -17,6 +17,8 @@ class Favourite extends Component {
   }
 
   handlePress = () => {
+    this.props.pressResponse()
+
     this.setState({
       clicked: !this.state.clicked
     })

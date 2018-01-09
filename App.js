@@ -1,26 +1,39 @@
-/* Core */
 import React, { Component } from 'react'
 
-/* Presentational */
-import { View } from 'react-native'
+import { View, TextInput } from 'react-native'
 
-// import styles from './styles'
 import { styles } from './style/styles.js'
 
 import Navbar from './Components/Navbar'
-import AnimatedCard from './Components/AnimatedCard'
+import NotesList from './Components/NotesList'
+
 import store from './store'
 
 export default class App extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      visibilityFilter: 'SHOW_ALL',
+      notes: []
+    }
+
+    store.subscribe(() => {
+      this.setState({
+        visibilityFilter: store.getState().visibilityFilter,
+        notes: store.getState().notes
+      })
+    })
+  }
+
   render () {
     return (
       <View style={styles.container}>
-        <Navbar />
-        <AnimatedCard
-          text={'Hello Worldhjgdhkhgjdfewffwrfderjhewgfjhewhjjwefghewfgwjkefgjwkegfkjwegfkjewferjkfhekjrfgkejrfhkier f kuherf rkhjf rekjhfrfhjk erhjk'}
-          animatedCardStyle={styles.AnimatedCardText}
-          style={styles.AnimatedCard}
-          />
+        <Navbar visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
+        {
+          this.state.visibilityFilter === 'WRITE_MODE'
+          ? <TextInput placeholderTextColor={'white'} style={{height: 30, width: '80%', color: 'white'}} key={'w'} placeholder={'Whats on your mind?'} />
+          : <NotesList visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
+        }
       </View>
     )
   }

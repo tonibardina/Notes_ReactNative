@@ -12,7 +12,7 @@ import {
 
 class Tick extends Component {
   handlePress = () => {
-  
+   this.props.pressResponse()
   }
 
   render () {

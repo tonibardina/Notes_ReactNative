@@ -12,7 +12,7 @@ import {
 
 class TrashCan extends Component {
   handlePress = () => {
-  
+    this.props.pressResponse()
   }
 
   render () {

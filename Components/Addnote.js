@@ -1,7 +1,8 @@
-/* Core */
 import React, { Component } from 'react'
 
-/* Presentational */
+import iconIos from '../assets/ios/+Icon/+Filled.png'
+import iconAndroid from '../assets/android/+Icon/+Filledhdpi.png'
+
 import {
   View,
   Platform,
@@ -17,7 +18,7 @@ class Addnote extends Component {
   }
 
   handlePress = () => {
-    console.log('pressed')
+    this.props.handlePress()
   }
 
   render () {
@@ -27,11 +28,11 @@ class Addnote extends Component {
         {
           Platform.OS === 'ios' ? (
             <TouchableHighlight style={{padding: 18}} onPress={this.handlePress} underlayColor={'transparent'}>
-              <Image source={require('../assets/ios/+Icon/+Filled.png')} />
+              <Image source={iconIos} />
             </TouchableHighlight>
           ) : (
             <TouchableNativeFeedback style={{padding: 18}} onPress={this.handlePress} underlayColor={'transparent'}>
-              <Image source={require('../assets/android/+Icon/+Filledmdpi.png')} />
+              <Image source={iconAndroid} />
             </TouchableNativeFeedback>
           )
         }
