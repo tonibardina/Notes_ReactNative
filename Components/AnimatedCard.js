@@ -52,18 +52,14 @@ export default class AnimatedCard extends Component {
   }
 
   _handleOnPanResponderMove = (e, gestureState) => {
-    if (gestureState.dx > 0 || gestureState.dx < 0) {
-      this.props.scrolling(false)
-    } else {
-      this.props.scrolling(true)
-    }
+    this.props.scrollEnabled(false)
     return Animated.event([ null, {dx: this.state.pan.x} ])(e, gestureState)
   }
 
   _handleOnPanResponderRelease = () => {
     this.state.pan.flattenOffset()
 
-    this.props.scrolling(true) 
+    this.props.scrollEnabled(true) 
 
     if (this.state.pan.x._value < 150 && this.state.pan.x._value > -150) {
       Animated.spring(this.state.pan, {

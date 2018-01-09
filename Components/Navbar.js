@@ -22,6 +22,7 @@ export default class Navbar extends Component {
     store.dispatch({type: 'SHOW_VISIBILITY_FILTER', filter: 'WRITE_MODE'})
   }
 
+
   render () {
     return (
       <View style={styles.navbar}>

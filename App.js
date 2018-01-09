@@ -14,7 +14,8 @@ export default class App extends Component {
     super(props)
     this.state = {
       visibilityFilter: 'SHOW_ALL',
-      notes: []
+      notes: [],
+      scrolling: true
     }
 
     store.subscribe(() => {
@@ -25,6 +26,12 @@ export default class App extends Component {
     })
   }
 
+  scrollEnabled = (value) => {
+    this.setState({
+      scrolling: value
+    })
+  }
+
   render () {
     return (
       <View style={styles.container}>
@@ -32,7 +39,7 @@ export default class App extends Component {
         {
           this.state.visibilityFilter === 'WRITE_MODE'
           ? <TextInput placeholderTextColor={'white'} style={{height: 30, width: '80%', color: 'white'}} key={'w'} placeholder={'Whats on your mind?'} />
-          : <NotesList visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
+          : <NotesList scrolling={this.state.scrolling} scrollEnabled={this.scrollEnabled} visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
         }
       </View>
     )
