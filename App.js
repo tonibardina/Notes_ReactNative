@@ -38,13 +38,21 @@ export default class App extends Component {
     })
   }
 
+  resetNoteToBeAdded = () => {
+    this.setState({
+      noteToBeAdded: ''
+    })
+  }
+
   render () {
+    const badMemoryText = "You didn't write anything!"
     return (
       <ContainerView>
         <Navbar
           mode={this.state.mode}
           notes={this.state.notes}
-          noteToBeAdded={this.state.noteToBeAdded || 'You forgot to write something...'}
+          noteToBeAdded={this.state.noteToBeAdded || badMemoryText}
+          resetNoteToBeAdded={this.resetNoteToBeAdded}
         />
         {
           this.state.mode === 'WRITE_MODE'

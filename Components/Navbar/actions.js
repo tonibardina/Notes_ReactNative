@@ -1,6 +1,6 @@
 const uuidv4 = require('uuid/v4')
 
-function addTodo (text) {
+function addNote (text) {
   return { type: 'ADD_NOTE', text: text, id: uuidv4(), favorite: false }
 }
 
@@ -9,7 +9,7 @@ function changeMode (mode) {
 }
 
 function visibilityFilter (filter) {
-  return { type: 'SHOW_VISIBILITY_FILTER', filter: filter }
+  return { type: 'SHOW_VISIBILITY_FILTER', filter }
 }
 
-export { addTodo, changeMode, visibilityFilter }
+export { addNote, changeMode, visibilityFilter }
