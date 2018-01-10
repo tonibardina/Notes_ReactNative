@@ -1,19 +1,16 @@
-/* Core */
 import React, { Component } from 'react'
 
-/* Presentational */
 import { View } from 'react-native'
 
-// import styles from './styles'
-import { styles } from '../style/styles.js'
+import { styles } from '../../style/styles.js'
 
-import store from '../store'
+import store from '../../store'
 
 import HeaderText from './HeaderText'
-import Favourite from './Favourite'
-import Addnote from './Addnote'
-import Tick from './Tick'
-import Cross from './Cross'
+import Favourite from '../Buttons/Favourite'
+import Addnote from '../Buttons/Addnote'
+import Tick from '../Buttons/Tick'
+import Cross from '../Buttons/Cross'
 
 export default class Navbar extends Component {
 

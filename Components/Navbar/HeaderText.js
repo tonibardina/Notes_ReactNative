@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { View, Text } from 'react-native'
 
-import { styles } from '../style/styles.js'
+import { styles } from '../../style/styles.js'
 
 export default class HeaderText extends Component {
   render () {

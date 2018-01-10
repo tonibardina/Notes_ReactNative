@@ -3,7 +3,13 @@ import { createStore, combineReducers } from 'redux'
 import deepFreeze from 'deep-freeze'
 import expect from 'expect'
 
-const notes = (state = [], action) => {
+const sample = {
+  id: 'sample',
+  text: "Write your awesome notes by clicking on '+'! \nDrag left to delete note \nDrag right to mark note as favorite",
+  favorite: true
+}
+
+const notes = (state = [ sample ], action) => {
   switch (action.type) {
     case 'ADD_NOTE':
       return [

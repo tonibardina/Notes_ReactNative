@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 
 import { Animated, Text, PanResponder, View, LayoutAnimation } from 'react-native'
 
-import store from '../store'
+import store from '../../store'
 
-import Favourite from './Favourite'
-import TrashCan from './TrashCan'
+import Favourite from '../Buttons/Favourite'
+import TrashCan from '../Buttons/TrashCan'
 
 export default class AnimatedCard extends Component {
   constructor (props) {
@@ -17,25 +17,25 @@ export default class AnimatedCard extends Component {
 
   componentWillMount () {
     this._opacityAnimationCard = this.state.pan.x.interpolate({
-      inputRange: [-150, 0, 150],
+      inputRange: [-50, 0, 50],
       outputRange: [0.2, 2, 2],
       extrapolate: 'clamp'
     })
 
     this._opacityAnimationHearth = this.state.pan.x.interpolate({
-      inputRange: [-150, 100, 150],
+      inputRange: [-50, 25, 50],
       outputRange: [0, 0, 2],
       extrapolate: 'clamp'
     })
 
     this._opacityAnimationTrash = this.state.pan.x.interpolate({
-      inputRange: [-150, -100, 150],
+      inputRange: [-50, -25, 50],
       outputRange: [2, 0, 0],
       extrapolate: 'clamp'
     })
 
     this._scaleAnimation = this.state.pan.x.interpolate({
-      inputRange: [-150, 0],
+      inputRange: [-50, 0],
       outputRange: [0.6, 1],
       extrapolate: 'clamp'
     })
@@ -63,19 +63,19 @@ export default class AnimatedCard extends Component {
 
     this.props.scrollEnabled(true)
 
-    if (this.state.pan.x._value < 150 && this.state.pan.x._value > -150) {
+    if (this.state.pan.x._value < 50 && this.state.pan.x._value > -50) {
       Animated.spring(this.state.pan, {
         toValue: {x: 0, y: 0},
         friction: 8
       }).start()
-    } else if (this.state.pan.x._value > 150) {
+    } else if (this.state.pan.x._value > 50) {
       Animated.spring(this.state.pan, {
-        toValue: {x: 150, y: 0},
+        toValue: {x: 50, y: 0},
         friction: 8
       }).start()
-    } else if (this.state.pan.x._value < -150) {
+    } else if (this.state.pan.x._value < -50) {
       Animated.spring(this.state.pan, {
-        toValue: {x: -150, y: 0},
+        toValue: {x: -50, y: 0},
         friction: 8
       }).start()
     }

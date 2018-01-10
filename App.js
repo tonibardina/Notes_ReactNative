@@ -4,8 +4,8 @@ import { View, TextInput } from 'react-native'
 
 import { styles } from './style/styles.js'
 
-import Navbar from './Components/Navbar'
-import NotesList from './Components/NotesList'
+import Navbar from './Components/Navbar/Navbar'
+import NotesList from './Components/NotesList/NotesList'
 
 import store from './store'
 
@@ -15,6 +15,7 @@ export default class App extends Component {
     this.state = {
       scrolling: true,
       noteToBeAdded: '',
+      notes: store.getState().notes
     }
 
     store.subscribe(() => {
