@@ -16,23 +16,19 @@ const notes = (state = [], action) => {
       ]
 
     case 'ADD_FAVORITE':
-      return state.map(notes => {
-        if (notes.id !== action.id) {
-          return notes
+      return state.map(note => {
+        if (note.id !== action.id) {
+          return note
         }
 
         return {
-          ...notes,
-          favorite: true
+          ...note,
+          favorite: !note.favorite
         }
       })
 
     case 'REMOVE_NOTE':
-      return state.map(notes => {
-        if (notes.id !== action.id) {
-          return notes
-        }
-      })
+      return state.filter(item => item.id !== action.id)
 
     default:
       return state
@@ -48,10 +44,22 @@ const visibilityFilter = (state = 'SHOW_ALL', action) => {
   }
 }
 
+const mode = (state = 'SHOW_CONTENT', action) => {
+  switch (action.type) {
+    case 'CHANGE_MODE':
+      return action.filter
+    default:
+      return state
+  }
+}
+
 const notesAppStore = combineReducers({
   notes,
-  visibilityFilter
+  visibilityFilter,
+  mode
 })
+
+// TESTS
 
 const addNoteTest = () => {
   const stateBefore = []
@@ -115,8 +123,78 @@ const addFavoriteTest = () => {
   ).toEqual(stateAfter)
 }
 
+const removeNoteTest = () => {
+  const stateBefore = [
+    {
+      id: 0,
+      text: 'Hello World!',
+      favorite: false
+    },
+    {
+      id: 1,
+      text: 'Hello Martians!',
+      favorite: false
+    }
+  ]
+  const action = {
+    type: 'REMOVE_NOTE',
+    id: 1
+  }
+  const stateAfter = [
+    {
+      id: 0,
+      text: 'Hello World!',
+      favorite: false
+    }
+  ]
+
+  deepFreeze(stateBefore)
+  deepFreeze(action)
+
+  expect(
+    notes(stateBefore, action)
+  ).toEqual(stateAfter)
+}
+
+const visibilityFilterTest = () => {
+  const stateBefore = 'SHOW_ALL'
+
+  const action = {
+    type: 'SHOW_VISIBILITY_FILTER',
+    filter: 'SHOW_FAVORITE'
+  }
+  const stateAfter = 'SHOW_FAVORITE'
+
+  deepFreeze(action)
+  deepFreeze(stateBefore)
+
+  expect(
+    visibilityFilter(stateBefore, action)
+  ).toEqual(stateAfter)
+}
+
+const modeTest = () => {
+  const stateBefore = 'SHOW_CONTENT'
+
+  const action = {
+    type: 'CHANGE_MODE',
+    filter: 'WRITE_MODE'
+  }
+  const stateAfter = 'WRITE_MODE'
+
+  deepFreeze(action)
+  deepFreeze(stateBefore)
+
+  expect(
+    mode(stateBefore, action)
+  ).toEqual(stateAfter)
+}
+
 addNoteTest()
 addFavoriteTest()
+removeNoteTest()
+visibilityFilterTest()
+modeTest()
 console.log('Test passed!')
 
 export default createStore(notesAppStore)

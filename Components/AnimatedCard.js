@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 
-import { Animated, Text, PanResponder, View } from 'react-native'
+import { Animated, Text, PanResponder, View, LayoutAnimation } from 'react-native'
+
+import store from '../store'
 
 import Favourite from './Favourite'
 import TrashCan from './TrashCan'
@@ -46,20 +48,20 @@ export default class AnimatedCard extends Component {
     })
   }
 
-  _handleOnPanResponderGrant = (e) => {
+  _handleOnPanResponderGrant = (e, gestureState) => {
     this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value})
     this.state.pan.setValue({x: 0, y: 0})
   }
 
-  _handleOnPanResponderMove = (e, gestureState) => {
-    this.props.scrollEnabled(false)
-    return Animated.event([ null, {dx: this.state.pan.x} ])(e, gestureState)
+  _handleOnPanResponderMove = (event, gestureState) => {
+    gestureState.dx < 10 && gestureState.dx > -10 ? this.props.scrollEnabled(true) : this.props.scrollEnabled(false)
+    return Animated.event([ null, {dx: this.state.pan.x} ])(event, gestureState)
   }
 
-  _handleOnPanResponderRelease = () => {
+  _handleOnPanResponderRelease = (event, gestureState) => {
     this.state.pan.flattenOffset()
 
-    this.props.scrollEnabled(true) 
+    this.props.scrollEnabled(true)
 
     if (this.state.pan.x._value < 150 && this.state.pan.x._value > -150) {
       Animated.spring(this.state.pan, {
@@ -79,11 +81,20 @@ export default class AnimatedCard extends Component {
     }
   }
 
+  handlePress = (value) => {
+    if (value === 'hearth') {
+      store.dispatch({type: 'ADD_FAVORITE', id: this.props.id})
+    } else if (value === 'trash') {
+      store.dispatch({type: 'REMOVE_NOTE', id: this.props.id})
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
+    }
+  }
+
   render () {
     return (
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
         <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearth}]}>
-          <Favourite markAsFavorite style={{padding: 10}} />
+          <Favourite handlePress={this.handlePress} style={{padding: 10}} />
         </Animated.View>
         <Animated.View style={[this.props.style,
           {transform:
@@ -96,7 +107,7 @@ export default class AnimatedCard extends Component {
           <Text style={this.props.textStyle}>{this.props.text}</Text>
         </Animated.View>
         <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationTrash}]}>
-          <TrashCan style={{padding: 10}} />
+          <TrashCan handlePress={this.handlePress} style={{padding: 10}} />
         </Animated.View>
       </View>
     )

@@ -13,15 +13,15 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      visibilityFilter: 'SHOW_ALL',
-      notes: [],
-      scrolling: true
+      scrolling: true,
+      noteToBeAdded: '',
     }
 
     store.subscribe(() => {
       this.setState({
         visibilityFilter: store.getState().visibilityFilter,
-        notes: store.getState().notes
+        notes: store.getState().notes,
+        mode: store.getState().mode
       })
     })
   }
@@ -35,10 +35,14 @@ export default class App extends Component {
   render () {
     return (
       <View style={styles.container}>
-        <Navbar visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
+        <Navbar 
+          mode={this.state.mode} 
+          notes={this.state.notes}
+          noteToBeAdded={this.state.noteToBeAdded}
+        />
         {
-          this.state.visibilityFilter === 'WRITE_MODE'
-          ? <TextInput placeholderTextColor={'white'} style={{height: 30, width: '80%', color: 'white'}} key={'w'} placeholder={'Whats on your mind?'} />
+          this.state.mode === 'WRITE_MODE'
+          ? <TextInput onChangeText={(text) => this.setState({noteToBeAdded: text})} placeholderTextColor={'white'} style={{height: 30, width: '80%', color: 'white'}} key={'w'} placeholder={'Whats on your mind?'} />
           : <NotesList scrolling={this.state.scrolling} scrollEnabled={this.scrollEnabled} visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
         }
       </View>

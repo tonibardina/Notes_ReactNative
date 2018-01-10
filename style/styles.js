@@ -28,15 +28,12 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: '80%',
     padding: 10,
-    margin: 20,
+    margin: 5,
     borderRadius: 10
   },
   AnimatedCardText: {
     color: '#28605e',
     fontSize: 16,
     fontWeight: 'bold'
-  },
-  contentContainer: {
-
   }
 })

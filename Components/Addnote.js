@@ -12,17 +12,11 @@ import {
  } from 'react-native'
 
 class Addnote extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { }
-  }
-
   handlePress = () => {
-    this.props.handlePress()
+    this.props.handlePress('add')
   }
 
   render () {
-    let clicked = this.state.clicked
     return (
       <View>
         {

@@ -17,7 +17,7 @@ class Favourite extends Component {
   }
 
   handlePress = () => {
-    this.props.pressResponse()
+    this.props.handlePress('hearth')
 
     this.setState({
       clicked: !this.state.clicked

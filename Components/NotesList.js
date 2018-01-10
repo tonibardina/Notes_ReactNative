@@ -8,20 +8,21 @@ import AnimatedCard from './AnimatedCard'
 
 export default class NotesList extends Component {
   render () {
+    let scroll = this.props.scrollEnabled
     return (
-      <ScrollView scrollEnabled={this.props.scrolling} animation={false} width={'100%'} contentContainerStyle={{alignItems: 'center'}}>
+      <ScrollView scrollEnabled={this.props.scrolling} width={'100%'} contentContainerStyle={{alignItems: 'center', marginTop: 20}}>
         {
-          this.props.notes.length
+          this.props.notes
           ? this.props.visibilityFilter === 'SHOW_FAVORITE'
-              ? this.props.notes.map(note =>
-                note.favorite
-                  ? <AnimatedCard scrollEnabled={this.props.scrollEnabled} key={note.id} text={note.text} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
-                  : null
-                  )
-              : this.props.notes.map(note =>
-                <AnimatedCard scrollEnabled={this.props.scrollEnabled} key={note.id} text={note.text} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
+            ? this.props.notes.map(note =>
+              note.favorite === true
+                ? <AnimatedCard scrollEnabled={scroll} key={note.id} id={note.id} text={note.text} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
+                : null
                 )
-          : <AnimatedCard scrollEnabled={this.props.scrollEnabled} key={'x'} text={"Write something by cliking in '+' !"} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
+            : this.props.notes.map(note =>
+              <AnimatedCard scrollEnabled={scroll} key={note.id} id={note.id} text={note.text} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
+              )
+            : <AnimatedCard scrollEnabled={scroll} key={'x'} text={"Write something by cliking in '+' !"} style={styles.AnimatedCard} textStyle={styles.AnimatedCardText} />
         }
       </ScrollView>
     )

@@ -1,7 +1,5 @@
-/* Core */
 import React, { Component } from 'react'
 
-/* Presentational */
 import {
   View,
   Platform,
@@ -12,7 +10,7 @@ import {
 
 class TrashCan extends Component {
   handlePress = () => {
-    this.props.pressResponse()
+    this.props.handlePress('trash')
   }
 
   render () {
