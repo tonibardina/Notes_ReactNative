@@ -1,19 +1,30 @@
 import React, { Component } from 'react'
 
-import { View, TextInput } from 'react-native'
-
-import { styles } from './style/styles.js'
+import glamorous from 'glamorous-native'
 
 import Navbar from './Components/Navbar/Navbar'
 import NotesList from './Components/NotesList/NotesList'
 
 import store from './store'
 
+const Input = glamorous.textInput({
+  height: 60,
+  fontSize: 20,
+  width: '80%',
+  color: 'white'
+})
+
+const ContainerView = glamorous.view({
+  width: '100%',
+  height: '100%',
+  alignItems: 'center',
+  backgroundColor: '#9cd8d5'
+})
+
 export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      scrolling: true,
       noteToBeAdded: '',
       notes: store.getState().notes
     }
@@ -27,26 +38,27 @@ export default class App extends Component {
     })
   }
 
-  scrollEnabled = (value) => {
-    this.setState({
-      scrolling: value
-    })
-  }
-
   render () {
     return (
-      <View style={styles.container}>
-        <Navbar 
-          mode={this.state.mode} 
+      <ContainerView>
+        <Navbar
+          mode={this.state.mode}
           notes={this.state.notes}
-          noteToBeAdded={this.state.noteToBeAdded}
+          noteToBeAdded={this.state.noteToBeAdded || 'You forgot to write something...'}
         />
         {
           this.state.mode === 'WRITE_MODE'
-          ? <TextInput onChangeText={(text) => this.setState({noteToBeAdded: text})} placeholderTextColor={'white'} style={{height: 30, width: '80%', color: 'white'}} key={'w'} placeholder={'Whats on your mind?'} />
-          : <NotesList scrolling={this.state.scrolling} scrollEnabled={this.scrollEnabled} visibilityFilter={this.state.visibilityFilter} notes={this.state.notes} />
+          ? <Input
+            onChangeText={(text) => this.setState({noteToBeAdded: text})}
+            placeholder={'Whats on your mind?'}
+            placeholderTextColor={'white'}
+            />
+          : <NotesList
+            visibilityFilter={this.state.visibilityFilter}
+            notes={this.state.notes}
+            />
         }
-      </View>
+      </ContainerView>
     )
   }
 }

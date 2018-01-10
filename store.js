@@ -6,7 +6,7 @@ import expect from 'expect'
 const sample = {
   id: 'sample',
   text: "Write your awesome notes by clicking on '+'! \nDrag left to delete note \nDrag right to mark note as favorite",
-  favorite: true
+  favorite: false
 }
 
 const notes = (state = [ sample ], action) => {

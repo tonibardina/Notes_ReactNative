@@ -21,6 +21,7 @@
   "dependencies": {
     "clamp": "^1.0.1",
     "expo": "^23.0.4",
+    "glamorous-native": "^1.2.1",
     "react": "16.0.0",
     "react-native": "0.50.3",
     "uuid": "^3.1.0"

@@ -1,11 +1,26 @@
 import React, { Component } from 'react'
 
-import { Animated, Text, PanResponder, View, LayoutAnimation } from 'react-native'
+import { Animated, Text, PanResponder, View, LayoutAnimation, StyleSheet } from 'react-native'
 
 import store from '../../store'
 
+import { addFavorite, removeItem } from './actions'
+
+import glamorous, {ThemeProvider} from 'glamorous-native'
+
 import Favourite from '../Buttons/Favourite'
 import TrashCan from '../Buttons/TrashCan'
+
+const ContainerView = glamorous.view({
+  flexDirection: 'row', 
+  alignItems: 'center'
+})
+
+const CardText = glamorous.text({
+  color: '#28605e',
+  fontSize: 16,
+  fontWeight: 'bold'
+})
 
 export default class AnimatedCard extends Component {
   constructor (props) {
@@ -16,25 +31,25 @@ export default class AnimatedCard extends Component {
   }
 
   componentWillMount () {
-    this._opacityAnimationCard = this.state.pan.x.interpolate({
+    this._opacityAnimationCardButton = this.state.pan.x.interpolate({
       inputRange: [-50, 0, 50],
       outputRange: [0.2, 2, 2],
       extrapolate: 'clamp'
     })
 
-    this._opacityAnimationHearth = this.state.pan.x.interpolate({
+    this._opacityAnimationHearthButton = this.state.pan.x.interpolate({
       inputRange: [-50, 25, 50],
       outputRange: [0, 0, 2],
       extrapolate: 'clamp'
     })
 
-    this._opacityAnimationTrash = this.state.pan.x.interpolate({
+    this._opacityAnimationTrashButton = this.state.pan.x.interpolate({
       inputRange: [-50, -25, 50],
       outputRange: [2, 0, 0],
       extrapolate: 'clamp'
     })
 
-    this._scaleAnimation = this.state.pan.x.interpolate({
+    this._scaleCardAnimation = this.state.pan.x.interpolate({
       inputRange: [-50, 0],
       outputRange: [0.6, 1],
       extrapolate: 'clamp'
@@ -61,19 +76,20 @@ export default class AnimatedCard extends Component {
   _handleOnPanResponderRelease = (event, gestureState) => {
     this.state.pan.flattenOffset()
 
-    this.props.scrollEnabled(true)
+    let panX = this.state.pan.x._value
 
-    if (this.state.pan.x._value < 50 && this.state.pan.x._value > -50) {
+    if (panX < 50 && panX > -50) {
       Animated.spring(this.state.pan, {
         toValue: {x: 0, y: 0},
         friction: 8
       }).start()
-    } else if (this.state.pan.x._value > 50) {
+      this.props.scrollEnabled(true)
+    } else if (panX > 50) {
       Animated.spring(this.state.pan, {
         toValue: {x: 50, y: 0},
         friction: 8
       }).start()
-    } else if (this.state.pan.x._value < -50) {
+    } else if (panX < -50) {
       Animated.spring(this.state.pan, {
         toValue: {x: -50, y: 0},
         friction: 8
@@ -83,33 +99,39 @@ export default class AnimatedCard extends Component {
 
   handlePress = (value) => {
     if (value === 'hearth') {
-      store.dispatch({type: 'ADD_FAVORITE', id: this.props.id})
+      store.dispatch(addFavorite(this.props.id))
     } else if (value === 'trash') {
-      store.dispatch({type: 'REMOVE_NOTE', id: this.props.id})
+      store.dispatch(removeItem(this.props.id))
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
     }
   }
 
   render () {
     return (
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearth}]}>
+      <ContainerView>
+        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearthButton}]}>
           <Favourite handlePress={this.handlePress} style={{padding: 10}} />
         </Animated.View>
-        <Animated.View style={[this.props.style,
-          {transform:
-            [{translateX: this.state.pan.x}, {scale: this._scaleAnimation}],
-            opacity: this._opacityAnimationCard
-          }
-        ]}
+        <Animated.View style={[styles.AnimatedCard,
+          { transform: [{translateX: this.state.pan.x}, {scale: this._scaleCardAnimation}], opacity: this._opacityAnimationCardButton}]}
           {...this._panResponder.panHandlers}
         >
-          <Text style={this.props.textStyle}>{this.props.text}</Text>
+          <CardText>{this.props.text}</CardText>
         </Animated.View>
-        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationTrash}]}>
+        <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationTrashButton}]}>
           <TrashCan handlePress={this.handlePress} style={{padding: 10}} />
         </Animated.View>
-      </View>
+      </ContainerView>
     )
   }
 }
+
+const styles = StyleSheet.create({
+  AnimatedCard: {
+    backgroundColor: 'white',
+    width: '80%',
+    padding: 10,
+    margin: 5,
+    borderRadius: 10
+  }
+})
