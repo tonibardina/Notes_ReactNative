@@ -44,11 +44,11 @@ export default class NotesList extends Component {
           : this.props.visibilityFilter === 'SHOW_FAVORITE'
             ? this.props.notes.map(note =>
               note.favorite
-                ? <AnimatedCard scrollEnabled={this.scrollEnabled} key={note.id} id={note.id} text={note.text} />
+                ? <AnimatedCard scrollEnabled={this.scrollEnabled} key={note.id} id={note.id} favorite={note.favorite} text={note.text} />
                 : null
                 )
             : this.props.notes.map(note =>
-              <AnimatedCard scrollEnabled={this.scrollEnabled} key={note.id} id={note.id} text={note.text} />
+              <AnimatedCard scrollEnabled={this.scrollEnabled} key={note.id} id={note.id} favorite={note.favorite} text={note.text} />
               )
         }
       </ScrollView>

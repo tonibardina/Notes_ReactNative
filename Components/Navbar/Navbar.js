@@ -7,7 +7,7 @@ import glamorous, {ThemeProvider} from 'glamorous-native'
 import store from '../../store'
 import { addNote, changeMode, visibilityFilter, resetCurrentNote } from './actions'
 
-import Favourite from '../Buttons/Favourite'
+import FavouriteMenu from '../Buttons/FavouriteMenu'
 import Addnote from '../Buttons/Addnote'
 import Tick from '../Buttons/Tick'
 import Cross from '../Buttons/Cross'
@@ -40,7 +40,7 @@ export default class Navbar extends Component {
     if (value === 'tick') {
       store.dispatch(addNote(store.getState().noteToBeAdded))
       store.dispatch(changeMode('SHOW_CONTENT'))
-      store.dispatch(resetCurrentNote())
+      store.dispatch(resetCurrentNote()) // Avoid publishing empty notes
     } else if (value === 'cross') {
       store.dispatch(changeMode('SHOW_CONTENT'))
     } else if (value === 'hearth') {
@@ -49,6 +49,9 @@ export default class Navbar extends Component {
       : store.dispatch(visibilityFilter('SHOW_FAVORITE'))
     } else if (value === 'add') {
       store.dispatch(changeMode('WRITE_MODE'))
+      if (store.getState().visibiliyFilter === 'SHOW_FAVORITE') {
+        store.dispatch(visibilityFilter('SHOW_ALL')) // avoid app go crazy with what is favorite and what not
+      }
     }
   }
     
@@ -64,7 +67,7 @@ export default class Navbar extends Component {
             </NavbarView>
 
           : <NavbarView>
-              <Favourite handlePress={this.handlePress} style={{padding: 20}} />
+              <FavouriteMenu handlePress={this.handlePress} style={{padding: 20}} />
               <HeaderText>Notes</HeaderText>
               <Addnote handlePress={this.handlePress} handlePress={this.handlePress} style={{padding: 20}} />
             </NavbarView>

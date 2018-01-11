@@ -121,7 +121,7 @@ export default class AnimatedCard extends Component {
     return (
       <ContainerView>
         <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearthButton}]}>
-          <Favourite handlePress={this.handlePress} style={styles.AnimatedCardIcons} />
+          <Favourite favorite={this.props.favorite} handlePress={this.handlePress} style={styles.AnimatedCardIcons} />
         </Animated.View>
         <Animated.View style={[styles.AnimatedCard,
           { transform: [{translateX: this.state.pan.x}, {scale: this._scaleCardAnimation}], opacity: this._opacityAnimationCardButton}]}
