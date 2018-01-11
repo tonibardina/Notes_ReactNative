@@ -49,9 +49,6 @@ export default class Navbar extends Component {
       : store.dispatch(visibilityFilter('SHOW_FAVORITE'))
     } else if (value === 'add') {
       store.dispatch(changeMode('WRITE_MODE'))
-      if (store.getState().visibiliyFilter === 'SHOW_FAVORITE') {
-        store.dispatch(visibilityFilter('SHOW_ALL')) // avoid app go crazy with what is favorite and what not
-      }
     }
   }
     
