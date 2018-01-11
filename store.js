@@ -168,6 +168,19 @@ const removeNoteTest = () => {
   ).toEqual(stateAfter)
 }
 
+const noteToBeAddedTest = () => {
+  const stateBefore = "You didn't write anything!"
+  const action = {
+    type: 'ADD_CURRENT_NOTE',
+    text: 'Hello World!'
+  }
+  const stateAfter = 'Hello World!'
+
+  expect(
+    noteToBeAdded(stateBefore, action)
+  ).toEqual(stateAfter)
+}
+
 const visibilityFilterTest = () => {
   const stateBefore = 'SHOW_ALL'
 
@@ -199,6 +212,7 @@ const modeTest = () => {
 addNoteTest()
 addFavoriteTest()
 removeNoteTest()
+noteToBeAddedTest()
 visibilityFilterTest()
 modeTest()
 console.log('Test passed!')
