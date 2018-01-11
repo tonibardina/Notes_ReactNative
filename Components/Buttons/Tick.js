@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, Platform, TouchableHighlight, TouchableNativeFeedback, Image } from 'react-native'
 
 import IconIos from './assets/ios/tickIcon/tick.png'
-import IconAndroid from './assets/android/tickIcon/tickhdpi.png'
+import IconAndroid from './assets/android/tickIcon/tickmdpi.png'
 
 class Tick extends Component {
   handlePress = () => {

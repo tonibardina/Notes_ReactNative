@@ -7,13 +7,6 @@ import NotesList from './Components/NotesList/NotesList'
 
 import store from './store'
 
-const Input = glamorous.textInput({
-  height: 60,
-  fontSize: 20,
-  width: '80%',
-  color: 'white'
-})
-
 const ContainerView = glamorous.view({
   width: '100%',
   height: '100%',
@@ -25,7 +18,6 @@ export default class App extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      noteToBeAdded: '',
       notes: store.getState().notes
     }
 
@@ -38,34 +30,18 @@ export default class App extends Component {
     })
   }
 
-  resetNoteToBeAdded = () => {
-    this.setState({
-      noteToBeAdded: ''
-    })
-  }
-
   render () {
-    const badMemoryText = "You didn't write anything!"
     return (
       <ContainerView>
         <Navbar
           mode={this.state.mode}
           notes={this.state.notes}
-          noteToBeAdded={this.state.noteToBeAdded || badMemoryText}
-          resetNoteToBeAdded={this.resetNoteToBeAdded}
         />
-        {
-          this.state.mode === 'WRITE_MODE'
-          ? <Input
-            onChangeText={(text) => this.setState({noteToBeAdded: text})}
-            placeholder={'Whats on your mind?'}
-            placeholderTextColor={'white'}
-            />
-          : <NotesList
-            visibilityFilter={this.state.visibilityFilter}
-            notes={this.state.notes}
-            />
-        }
+        <NotesList
+          visibilityFilter={this.state.visibilityFilter}
+          notes={this.state.notes}
+          mode={this.state.mode}
+        />
       </ContainerView>
     )
   }

@@ -5,7 +5,7 @@ import { View } from 'react-native'
 import glamorous, {ThemeProvider} from 'glamorous-native'
 
 import store from '../../store'
-import { addNote, changeMode, visibilityFilter } from './actions'
+import { addNote, changeMode, visibilityFilter, resetCurrentNote } from './actions'
 
 import Favourite from '../Buttons/Favourite'
 import Addnote from '../Buttons/Addnote'
@@ -38,9 +38,9 @@ export default class Navbar extends Component {
 
   handlePress = (value) => {
     if (value === 'tick') {
-      store.dispatch(addNote(this.props.noteToBeAdded))
+      store.dispatch(addNote(store.getState().noteToBeAdded))
       store.dispatch(changeMode('SHOW_CONTENT'))
-      this.props.resetNoteToBeAdded()
+      store.dispatch(resetCurrentNote())
     } else if (value === 'cross') {
       store.dispatch(changeMode('SHOW_CONTENT'))
     } else if (value === 'hearth') {

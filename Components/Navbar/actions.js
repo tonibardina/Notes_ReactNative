@@ -12,4 +12,8 @@ function visibilityFilter (filter) {
   return { type: 'SHOW_VISIBILITY_FILTER', filter }
 }
 
-export { addNote, changeMode, visibilityFilter }
+function resetCurrentNote () {
+  return { type: 'RESET_CURRENT_NOTE' }
+}
+
+export { addNote, changeMode, visibilityFilter, resetCurrentNote }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 import IconIos from './assets/ios/+Icon/+Filled.png'
-import IconAndroid from './assets/android/+Icon/+Filledhdpi.png'
+import IconAndroid from './assets/android/+Icon/+Filledmdpi.png'
 
 import { View, Platform, TouchableHighlight, TouchableNativeFeedback, Image } from 'react-native'
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, Platform, TouchableHighlight, TouchableNativeFeedback, Image } from 'react-native'
 
 import IconIos from './assets/ios/trashCan/trashCan.png'
-import IconAndroid from './assets/android/trashCan/trashCanhdpi.png'
+import IconAndroid from './assets/android/trashCan/trashCanmdpi.png'
 
 class TrashCan extends Component {
   handlePress = () => {

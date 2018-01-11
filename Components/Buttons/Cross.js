@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { View, Platform, TouchableHighlight, TouchableNativeFeedback, Image } from 'react-native'
 
 import IconIos from './assets/ios/crossIcon/cross.png'
-import IconAndroid from './assets/android/crossIcon/crosshdpi.png'
+import IconAndroid from './assets/android/crossIcon/crossmdpi.png'
 
 class Cross extends Component {
   handlePress = () => {

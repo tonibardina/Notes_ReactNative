@@ -5,8 +5,8 @@ import { View, Platform, TouchableHighlight, TouchableNativeFeedback, Image } fr
 import HearthFilled from './assets/ios/hearthIcon/hearthFilled.png'
 import HearthBorder from './assets/ios/hearthIcon/hearthBorder.png'
 
-import HearthFilledA from './assets/android/hearthIcon/hearthFilledhdpi.png'
-import HearthBorderA from './assets/android/hearthIcon/hearthBorderhdpi.png'
+import HearthFilledA from './assets/android/hearthIcon/hearthFilledmdpi.png'
+import HearthBorderA from './assets/android/hearthIcon/hearthBordermdpi.png'
 
 class Favourite extends Component {
   constructor (props) {

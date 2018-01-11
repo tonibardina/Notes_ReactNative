@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 
-import { Animated, Text, PanResponder, View, LayoutAnimation, StyleSheet } from 'react-native'
+import { Animated, Text, PanResponder, View, LayoutAnimation, StyleSheet, UIManager, Platform } from 'react-native'
+
+// Enable LayoutAnimation
+UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true)
+//
 
 import store from '../../store'
 
@@ -13,7 +17,9 @@ import TrashCan from '../Buttons/TrashCan'
 
 const ContainerView = glamorous.view({
   flexDirection: 'row', 
-  alignItems: 'center'
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%'
 })
 
 const CardText = glamorous.text({
@@ -26,7 +32,9 @@ export default class AnimatedCard extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
+      HearthIcon: false,
+      TrashIcon: false
     }
   }
 
@@ -84,12 +92,15 @@ export default class AnimatedCard extends Component {
         friction: 8
       }).start()
       this.props.scrollEnabled(true)
+      this.setState({ HearthIcon: false, TrashIcon: false})
     } else if (panX > 50) {
+      this.setState({ HearthIcon: true})
       Animated.spring(this.state.pan, {
         toValue: {x: 50, y: 0},
         friction: 8
       }).start()
     } else if (panX < -50) {
+      this.setState({ TrashIcon: true})
       Animated.spring(this.state.pan, {
         toValue: {x: -50, y: 0},
         friction: 8
@@ -99,9 +110,9 @@ export default class AnimatedCard extends Component {
 
   handlePress = (value) => {
     if (value === 'hearth') {
-      store.dispatch(addFavorite(this.props.id))
+      this.state.HearthIcon ? store.dispatch(addFavorite(this.props.id)) : null
     } else if (value === 'trash') {
-      store.dispatch(removeItem(this.props.id))
+      this.state.TrashIcon ? store.dispatch(removeItem(this.props.id)) : null
       LayoutAnimation.configureNext(LayoutAnimation.Presets.spring)
     }
   }
@@ -110,7 +121,7 @@ export default class AnimatedCard extends Component {
     return (
       <ContainerView>
         <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationHearthButton}]}>
-          <Favourite handlePress={this.handlePress} style={{padding: 10}} />
+          <Favourite handlePress={this.handlePress} style={styles.AnimatedCardIcons} />
         </Animated.View>
         <Animated.View style={[styles.AnimatedCard,
           { transform: [{translateX: this.state.pan.x}, {scale: this._scaleCardAnimation}], opacity: this._opacityAnimationCardButton}]}
@@ -119,7 +130,7 @@ export default class AnimatedCard extends Component {
           <CardText>{this.props.text}</CardText>
         </Animated.View>
         <Animated.View style={[{transform: [{translateX: this.state.pan.x}], opacity: this._opacityAnimationTrashButton}]}>
-          <TrashCan handlePress={this.handlePress} style={{padding: 10}} />
+          <TrashCan handlePress={this.handlePress} style={styles.AnimatedCardIcons} />
         </Animated.View>
       </ContainerView>
     )
@@ -132,6 +143,16 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 10,
     margin: 5,
-    borderRadius: 10
+    borderRadius: 10,
+    shadowColor: '#42a1c8',
+    shadowOffset: {
+      width: 0,
+      height: 3
+    },
+    shadowRadius: 5,
+    shadowOpacity: 0.5
+  },
+  AnimatedCardIcons: {
+    padding: 20,
   }
 })

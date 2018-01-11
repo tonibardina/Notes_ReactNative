@@ -1,6 +1,5 @@
 import { createStore, combineReducers } from 'redux'
 
-import deepFreeze from 'deep-freeze'
 import expect from 'expect'
 
 const sample = {
@@ -41,6 +40,21 @@ const notes = (state = [ sample ], action) => {
   }
 }
 
+const noteToBeAdded = (state = "You didn't write anything!", action) => {
+  switch (action.type) {
+    case 'ADD_CURRENT_NOTE':
+      if (action.text.length) {
+        return action.text
+      } else {
+        return state
+      }
+    case 'RESET_CURRENT_NOTE':
+      return "You didn't write anything!"
+    default:
+      return state
+  }
+}
+
 const visibilityFilter = (state = 'SHOW_ALL', action) => {
   switch (action.type) {
     case 'SHOW_VISIBILITY_FILTER':
@@ -62,7 +76,8 @@ const mode = (state = 'SHOW_CONTENT', action) => {
 const notesAppStore = combineReducers({
   notes,
   visibilityFilter,
-  mode
+  mode,
+  noteToBeAdded
 })
 
 // TESTS
@@ -82,9 +97,6 @@ const addNoteTest = () => {
       favorite: false
     }
   ]
-
-  deepFreeze(stateBefore)
-  deepFreeze(action)
 
   expect(
     notes(stateBefore, action)
@@ -121,9 +133,6 @@ const addFavoriteTest = () => {
     }
   ]
 
-  deepFreeze(stateBefore)
-  deepFreeze(action)
-
   expect(
     notes(stateBefore, action)
   ).toEqual(stateAfter)
@@ -154,9 +163,6 @@ const removeNoteTest = () => {
     }
   ]
 
-  deepFreeze(stateBefore)
-  deepFreeze(action)
-
   expect(
     notes(stateBefore, action)
   ).toEqual(stateAfter)
@@ -171,9 +177,6 @@ const visibilityFilterTest = () => {
   }
   const stateAfter = 'SHOW_FAVORITE'
 
-  deepFreeze(action)
-  deepFreeze(stateBefore)
-
   expect(
     visibilityFilter(stateBefore, action)
   ).toEqual(stateAfter)
@@ -187,9 +190,6 @@ const modeTest = () => {
     filter: 'WRITE_MODE'
   }
   const stateAfter = 'WRITE_MODE'
-
-  deepFreeze(action)
-  deepFreeze(stateBefore)
 
   expect(
     mode(stateBefore, action)

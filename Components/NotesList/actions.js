@@ -6,4 +6,8 @@ function removeItem (id) {
   return { type: 'REMOVE_NOTE', id: id }
 }
 
-export { addFavorite, removeItem }
+function addCurrentNote (text) {
+  return { type: 'ADD_CURRENT_NOTE', text }
+}
+
+export { addFavorite, removeItem, addCurrentNote }
